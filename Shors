@@ -1,0 +1,41 @@
+_G.autoTap = true;
+_G.autoRebirth = false;
+_G.autoBuyPet = false;
+
+local remotePathEvents = game:GetService("ReplicatedStorage"):WaitForChild("Events")
+local remotePathFunction = game:GetService("ReplicatedStorage"):WaitForChild("Functions")
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+spawn(function ()
+    while _G.autoTap == true do 
+        remotePathEvents:WaitForChild("Click3"):FireServer()
+        wait()
+    end
+end)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+spawn(function ()
+    while _G.autoRebirth == true do
+        local args = {
+            [1] = 1
+        }
+        remotePathEvents:WaitForChild("Rebirth"):FireServer(unpack(args))
+    wait()
+    end
+end)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+spawn(function ()
+    while wait() do
+        if not _G.autoBuyPet then break end;
+        local args = {
+            [1] = "Mythic",
+            [2] = "Single"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("Unbox"):InvokeServer(unpack(args))
+        wait()
+    end;
+end)
